@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"], select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<h1>Unit Converter</h1>
+
+<!-- Length Conversion Form -->
+<form id="lengthForm">
+    <h2>Length Conversion</h2>
+    <label for="lengthValue">Value:</label>
+    <input type="number" id="lengthValue" name="value" required>
+    <label for="lengthFrom">From:</label>
+    <select id="lengthFrom" name="from">
+        <option value="METER">Meter</option>
+        <option value="KILOMETER">Kilometer</option>
+        <option value="CENTIMETER">Centimeter</option>
+        <option value="MILLIMETER">Millimeter</option>
+        <option value="MILE">Mile</option>
+        <option value="YARD">Yard</option>
+        <option value="FOOT">Foot</option>
+        <option value="INCH">Inch</option>
+    </select>
+    <label for="lengthTo">To:</label>
+    <select id="lengthTo" name="to">
+        <option value="METER">Meter</option>
+        <option value="KILOMETER">Kilometer</option>
+        <option value="CENTIMETER">Centimeter</option>
+        <option value="MILLIMETER">Millimeter</option>
+        <option value="MILE">Mile</option>
+        <option value="YARD">Yard</option>
+        <option value="FOOT">Foot</option>
+        <option value="INCH">Inch</option>
+    </select>
+    <button type="button" onclick="convertLength()">Convert</button>
+</form>
+
+<!-- Temperature Conversion Form -->
+<form id="temperatureForm">
+    <h2>Temperature Conversion</h2>
+    <label for="temperatureValue">Value:</label>
+    <input type="number" id="temperatureValue" name="value" required>
+    <label for="temperatureFrom">From:</label>
+    <select id="temperatureFrom" name="from">
+        <option value="CELSIUS">Celsius</option>
+        <option value="FAHRENHEIT">Fahrenheit</option>
+        <option value="KELVIN">Kelvin</option>
+    </select>
+    <label for="temperatureTo">To:</label>
+    <select id="temperatureTo" name="to">
+        <option value="CELSIUS">Celsius</option>
+        <option value="FAHRENHEIT">Fahrenheit</option>
+        <option value="KELVIN">Kelvin</option>
+    </select>
+    <button type="button" onclick="convertTemperature()">Convert</button>
+</form>
+
+<div id="resultContainer" class="result"></div>
+
+<script>
+    function convertLength() {
+        var form = document.getElementById("lengthForm");
+        var formData = new FormData(form);
+        var url = "/convert/length?" + new URLSearchParams(formData).toString();
+
+        fetch(url)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("resultContainer").innerHTML = result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function convertTemperature() {
+        var form = document.getElementById("temperatureForm");
+        var formData = new FormData(form);
+        var url = "/convert/temperature?" + new URLSearchParams(formData).toString();
+
+        fetch(url)
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById("resultContainer").innerHTML = result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
+</body>
+</html>
