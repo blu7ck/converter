@@ -1,1 +1,1 @@
-web: java -jar target/converter-1.0-SNAPSHOT.jar
+web: java -jar target/converter-0.0.1-SNAPSHOT.jar
