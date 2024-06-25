@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
+    <style>
+        .converter {
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group select, .form-group input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        .btm-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+    </style>
+</head>
+<body>
+<div class="dropdown dropdown-hover">
+    <div tabindex="0" role="button" class="btn m-1">Tools</div>
+    <ul tabindex="0" class="dropdown-content menu z-10 w-52 rounded-box bg-base-100 p-2 shadow">
+        <li><a href="/length">Length</a></li>
+        <li><a href="/temperature">Temperature</a></li>
+    </ul>
+</div>
+
+<div class="converter">
+    <div class="form-group">
+        <label for="value">Value:</label>
+        <input type="number" id="value" step="any" placeholder="Enter value" class="input input-bordered">
+    </div>
+    <div class="form-group">
+        <label for="fromUnit">From Unit:</label>
+        <select id="fromUnit" class="select select-bordered">
+            <option value="CELSIUS">Celsius</option>
+            <option value="FAHRENHEIT">Fahrenheit</option>
+            <option value="KELVIN">Kelvin</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="toUnit">To Unit:</label>
+        <select id="toUnit" class="select select-bordered">
+            <option value="CELSIUS">Celsius</option>
+            <option value="FAHRENHEIT">Fahrenheit</option>
+            <option value="KELVIN">Kelvin</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button onclick="convertTemperature()" class="btn btn-outline btn-warning">Convert!</button>
+    </div>
+    <div class="result">
+        <p id="resultValue">Converted value will appear here.</p>
+    </div>
+</div>
+
+<!-- Footer navigasyon -->
+<div class="btm-nav flex justify-between p-2">
+    <button class="flex flex-col items-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <li>
+            <a href="/index" class="btm-nav-label">Home</a>
+        </li>
+    </button>
+    <button class="active flex flex-col items-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="btm-nav-label">Warnings</span>
+    </button>
+    <button class="flex flex-col items-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <span class="btm-nav-label">History</span>
+    </button>
+</div>
+
+<script>
+    class TConverter {
+        static temperatureConvert(value, from, to) {
+            if (from === null || to === null) {
+                throw new Error("Invalid units for temperature conversion.");
+            }
+
+            let celsius;
+
+            // Convert from 'from' unit to Celsius
+            switch (from) {
+                case 'FAHRENHEIT':
+                    celsius = (value - 32) * 5 / 9;
+                    break;
+                case 'KELVIN':
+                    celsius = value - 273.15;
+                    break;
+                case 'CELSIUS':
+                    celsius = value;
+                    break;
+                default:
+                    throw new Error("Invalid 'from' unit");
+            }
+
+            // Convert from Celsius to 'to' unit
+            let result;
+            switch (to) {
+                case 'FAHRENHEIT':
+                    result = celsius * 9 / 5 + 32;
+                    break;
+                case 'KELVIN':
+                    result = celsius + 273.15;
+                    break;
+                case 'CELSIUS':
+                    result = celsius;
+                    break;
+                default:
+                    throw new Error("Invalid 'to' unit");
+            }
+            return result;
+        }
+    }
+
+    function convertTemperature() {
+        const value = parseFloat(document.getElementById("value").value);
+        const fromUnit = document.getElementById("fromUnit").value;
+        const toUnit = document.getElementById("toUnit").value;
+
+        if (isNaN(value)) {
+            document.getElementById("resultValue").innerText = "Please enter a valid number.";
+            return;
+        }
+
+        try {
+            const result = TConverter.temperatureConvert(value, fromUnit, toUnit);
+            document.getElementById("resultValue").innerText = `${value} ${fromUnit} is equal to ${result} ${toUnit}`;
+        } catch (error) {
+            document.getElementById("resultValue").innerText = "Error in conversion.";
+        }
+    }
+</script>
+
+</body>
+</html>

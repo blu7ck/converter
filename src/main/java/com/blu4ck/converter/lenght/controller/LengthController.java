@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
         private final LenghtConverter lConverter = new LConverter();
 
-        @GetMapping("/convert/length")
+        @GetMapping("/index/length")
         public double convertLength(@RequestParam double value,
                                     @RequestParam LengthUnit from,
                                     @RequestParam LengthUnit to) {

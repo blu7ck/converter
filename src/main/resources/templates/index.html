@@ -2,145 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Unit Converter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Integration</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 20px;
+        /* Stil dosyası içinde footer'ı sabit tutma */
+        .btm-nav {
+            position: fixed; /* Footer'ı sabit konumda tutar */
+            bottom: 0; /* Sayfanın altına yaslar */
+            left: 0; /* Soldan itibaren 0 konumda başlar */
+            right: 0; /* Sağdan itibaren 0 konumda başlar */
+            z-index: 999; /* Diğer içeriklerin üzerine çıkarır */
+            width: 100%; /* Footer'ın genişliğini sayfa genişliğine ayarlar */
+
+            padding: 10px; /* Footer içeriğine hava katmak */
+            display: flex; /* Yatay hizalama yapar */
+            justify-content: space-between; /* İçerikleri ayırır */
+            align-items: center; /* Öğeleri dikeyde hizalama yapar */
         }
-        h1, h2 {
-            color: #333;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #555;
-        }
-        input[type="number"], select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
-            margin-bottom: 10px;
-            font-size: 16px;
-            background-color: #f9f9f9;
-        }
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-        }
+
     </style>
+
 </head>
 <body>
-<h1>Unit Converter</h1>
+<!--dropdown-->
+<div class="dropdown dropdown-hover">
+    <div tabindex="0" role="button" class="btn m-1">Tools</div>
+    <ul tabindex="0" class="dropdown-content menu z-10 w-52 rounded-box bg-base-100 p-2 shadow">
+        <li><a href="/length">Length</a></li>
+        <li><a href="/temperature">Temperature</a></li>
+    </ul>
+</div>
 
-<!-- Length Conversion Form -->
-<form id="lengthForm">
-    <h2>Length Conversion</h2>
-    <label for="lengthValue">Value:</label>
-    <input type="number" id="lengthValue" name="value" required>
-    <label for="lengthFrom">From:</label>
-    <select id="lengthFrom" name="from">
-        <option value="METER">Meter</option>
-        <option value="KILOMETER">Kilometer</option>
-        <option value="CENTIMETER">Centimeter</option>
-        <option value="MILLIMETER">Millimeter</option>
-        <option value="MILE">Mile</option>
-        <option value="YARD">Yard</option>
-        <option value="FOOT">Foot</option>
-        <option value="INCH">Inch</option>
-    </select>
-    <label for="lengthTo">To:</label>
-    <select id="lengthTo" name="to">
-        <option value="METER">Meter</option>
-        <option value="KILOMETER">Kilometer</option>
-        <option value="CENTIMETER">Centimeter</option>
-        <option value="MILLIMETER">Millimeter</option>
-        <option value="MILE">Mile</option>
-        <option value="YARD">Yard</option>
-        <option value="FOOT">Foot</option>
-        <option value="INCH">Inch</option>
-    </select>
-    <button type="button" onclick="convertLength()">Convert</button>
-</form>
+<!--avatar-->
+<div class="flex justify-center p-4 ">
+    <img class=" mask mask-triangle-2 " src="https://i.hizliresim.com/po8l56v.png"  alt=""/>
+</div>
 
-<!-- Temperature Conversion Form -->
-<form id="temperatureForm">
-    <h2>Temperature Conversion</h2>
-    <label for="temperatureValue">Value:</label>
-    <input type="number" id="temperatureValue" name="value" required>
-    <label for="temperatureFrom">From:</label>
-    <select id="temperatureFrom" name="from">
-        <option value="CELSIUS">Celsius</option>
-        <option value="FAHRENHEIT">Fahrenheit</option>
-        <option value="KELVIN">Kelvin</option>
-    </select>
-    <label for="temperatureTo">To:</label>
-    <select id="temperatureTo" name="to">
-        <option value="CELSIUS">Celsius</option>
-        <option value="FAHRENHEIT">Fahrenheit</option>
-        <option value="KELVIN">Kelvin</option>
-    </select>
-    <button type="button" onclick="convertTemperature()">Convert</button>
-</form>
 
-<div id="resultContainer" class="result"></div>
+<!--footer-->
+<div class="btm-nav flex justify-between p-2">
+    <button class="flex flex-col items-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <li>
+            <a href="/index" class="btm-nav-label">Home</a>
+        </li>
 
-<script>
-    function convertLength() {
-        var form = document.getElementById("lengthForm");
-        var formData = new FormData(form);
-        var url = "/convert/length?" + new URLSearchParams(formData).toString();
+    </button>
+    <button class="active flex flex-col items-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="btm-nav-label">Warnings</span>
+    </button>
+    <button class="flex flex-col items-center ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <span class="btm-nav-label">History</span>
+    </button>
+</div>
 
-        fetch(url)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("resultContainer").innerHTML = result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 
-    function convertTemperature() {
-        var form = document.getElementById("temperatureForm");
-        var formData = new FormData(form);
-        var url = "/convert/temperature?" + new URLSearchParams(formData).toString();
-
-        fetch(url)
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById("resultContainer").innerHTML = result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-</script>
 
 </body>
 </html>

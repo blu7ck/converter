@@ -10,7 +10,6 @@ public class LConverter implements LenghtConverter {
             throw new IllegalArgumentException("Invalid units for length conversion.");
         }
 
-        // Convert from 'from' unit to meters
         double meters = value;
         switch (from) {
             case KILOMETER:
@@ -38,18 +37,23 @@ public class LConverter implements LenghtConverter {
                 break;
         }
 
-        // Convert from meters to 'to' unit
-        return switch (to) {
-            case KILOMETER -> meters / 1000;
-            case CENTIMETER -> meters * 100;
-            case MILLIMETER -> meters * 1000;
-            case MILE -> meters / 1609.34;
-            case YARD -> meters / 0.9144;
-            case FOOT -> meters / 0.3048;
-            case INCH -> meters / 0.0254;
-            default -> meters;
-        };
+        switch (to) {
+            case KILOMETER:
+                return meters / 1000;
+            case CENTIMETER:
+                return meters * 100;
+            case MILLIMETER:
+                return meters * 1000;
+            case MILE:
+                return meters / 1609.34;
+            case YARD:
+                return meters / 0.9144;
+            case FOOT:
+                return meters / 0.3048;
+            case INCH:
+                return meters / 0.0254;
+            default:
+                return meters;
+        }
     }
-
-
 }
