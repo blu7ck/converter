@@ -6,7 +6,7 @@ import com.blu4ck.converter.lenght.model.LengthUnit;
 public class LConverter implements LenghtConverter {
     @Override
     public double lengthConvert(double value, LengthUnit from, LengthUnit to) {
-        if (from == null || to == null) {
+        if (from == null || to == null || value < 0) {
             throw new IllegalArgumentException("Invalid units for length conversion.");
         }
 
