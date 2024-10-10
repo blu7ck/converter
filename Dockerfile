@@ -1,4 +1,7 @@
-FROM ubuntu:latest
-LABEL authors="blu4c"
+FROM openjdk:17-jdk-alpine
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY target/*.jar /app/converter-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT ["java", "-jar", "/app/converter-0.0.1-SNAPSHOT.jar"]

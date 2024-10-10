@@ -1,9 +1,9 @@
 package com.blu4ck.converter.lenght.service;
 
-import com.blu4ck.converter.lenght.LenghtConverter;
+import com.blu4ck.converter.lenght.LengthConverter;
 import com.blu4ck.converter.lenght.model.LengthUnit;
 
-public class LConverter implements LenghtConverter {
+public class LConverter implements LengthConverter {
     @Override
     public double lengthConvert(double value, LengthUnit from, LengthUnit to) {
         if (from == null || to == null || value < 0) {
@@ -12,6 +12,7 @@ public class LConverter implements LenghtConverter {
 
         double meters = value;
         switch (from) {
+
             case KILOMETER:
                 meters = value * 1000;
                 break;

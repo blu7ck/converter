@@ -22,18 +22,148 @@
             align-items: center; /* Öğeleri dikeyde hizalama yapar */
         }
 
+        .gradient-button {
+    text-decoration: none;
+    position: relative;
+    border: none;
+    font-size: 18px;
+    font-family: inherit;
+    cursor: pointer;
+    color: #fff;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    border-radius: 40px;
+    z-index: 1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
+    align-items: center;
+}
+
+.gradient-button:hover {
+    animation: ani 8s linear infinite;
+    border: none;
+}
+
+@keyframes ani {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 400%;
+    }
+}
+
+.gradient-button:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    border-radius: 35px;
+    transition: 1s;
+}
+
+.gradient-button:hover::before {
+    filter: blur(20px);
+}
+
+.gradient-button:active {
+    background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  background-color: #0D1117;
+  justify-content: center;
+  border-radius: 5px
+
+}
+
+.value {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  color: white;
+  display: flex;
+  position: relative;
+  gap: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+
+}
+
+.value:not(:active):hover,
+.value:focus {
+  background-color: #21262C;
+}
+
+.value:focus,
+.value:active {
+  background-color: #1A1F24;
+  outline: none;
+}
+
+.value::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -10px;
+  width: 5px;
+  height: 80%;
+  background-color: #2F81F7;
+  border-radius: 5px;
+  opacity: 0;
+}
+
+.value:focus::before,
+.value:active::before {
+  opacity: 1;
+}
+
+.value svg {
+  width: 15px
+}
+
+.input:hover > :not(.value:hover) {
+  transition: 300ms;
+  filter: blur(1px);
+  transform: scale(0.95,0.95);
+}
+
     </style>
 
 </head>
 <body>
 <!--dropdown-->
-<div class="dropdown dropdown-hover">
-    <div tabindex="0" role="button" class="btn m-1">Tools</div>
-    <ul tabindex="0" class="dropdown-content menu z-10 w-52 rounded-box bg-base-100 p-2 shadow">
+
+<div class="input">
+
+    <button class="value">
+
         <li><a href="/length">Length</a></li>
+    </button>
+    <button class="value">
+
         <li><a href="/temperature">Temperature</a></li>
-    </ul>
+    </button>
 </div>
+
+
+
 
 <!--avatar-->
 <div class="flex justify-center p-4 ">
@@ -43,26 +173,22 @@
 
 <!--footer-->
 <div class="btm-nav flex justify-between p-2">
-    <button class="flex flex-col items-center ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-        </svg>
+    <button>
+
         <li>
             <a href="/index" class="btm-nav-label">Home</a>
         </li>
 
     </button>
-    <button class="active flex flex-col items-center ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span class="btm-nav-label">Warnings</span>
+
+    <button >
+        <a href="https://linktr.ee/blu4ck" class="gradient-button">Hey!</a>
     </button>
-    <button class="flex flex-col items-center ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-        <span class="btm-nav-label">History</span>
+
+    <button>
+        <li>
+            <a href="/history" class="btm-nav-label">History</a>
+        </li>
     </button>
 </div>
 

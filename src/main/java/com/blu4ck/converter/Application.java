@@ -23,5 +23,9 @@ public class Application {
 	public String Length() {
 		return "Length";
 	}
+	@GetMapping("/history")
+	public  String History(){
+		return "history";
+	}
 }
 
