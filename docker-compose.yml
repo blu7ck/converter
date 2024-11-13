@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:17
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2503
+      POSTGRES_DB: web
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  app:
+    image: alpha
+    container_name: converter-alpha
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/web
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 2503
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
+    ports:
+      - "4444:4444"
+
+volumes:
+  pg_data:

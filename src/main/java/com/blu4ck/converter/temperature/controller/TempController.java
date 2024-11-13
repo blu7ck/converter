@@ -1,4 +1,5 @@
 package com.blu4ck.converter.temperature.controller;
+import com.blu4ck.converter.history.HistoryManager;
 import com.blu4ck.converter.temperature.TemperatureConverter;
 import com.blu4ck.converter.temperature.model.TempUnit;
 import com.blu4ck.converter.temperature.service.TConverter;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TempController {
 
-        private final TemperatureConverter tConverter = new TConverter();
+        private final TemperatureConverter tConverter = new TConverter(null);
 
         @GetMapping("/index/temperature")
         public double convertTemperature(@RequestParam double value,

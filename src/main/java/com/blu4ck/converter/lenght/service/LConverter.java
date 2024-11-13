@@ -1,9 +1,16 @@
 package com.blu4ck.converter.lenght.service;
 
+import com.blu4ck.converter.history.HistoryManager;
 import com.blu4ck.converter.lenght.LengthConverter;
 import com.blu4ck.converter.lenght.model.LengthUnit;
 
 public class LConverter implements LengthConverter {
+    private final HistoryManager historyManager;
+
+    public LConverter(HistoryManager historyManager) {
+        this.historyManager = historyManager;
+    }
+
     @Override
     public double lengthConvert(double value, LengthUnit from, LengthUnit to) {
         if (from == null || to == null || value < 0) {
@@ -38,23 +45,21 @@ public class LConverter implements LengthConverter {
                 break;
         }
 
-        switch (to) {
-            case KILOMETER:
-                return meters / 1000;
-            case CENTIMETER:
-                return meters * 100;
-            case MILLIMETER:
-                return meters * 1000;
-            case MILE:
-                return meters / 1609.34;
-            case YARD:
-                return meters / 0.9144;
-            case FOOT:
-                return meters / 0.3048;
-            case INCH:
-                return meters / 0.0254;
-            default:
-                return meters;
-        }
+        double result = switch (to) {
+            case KILOMETER -> meters / 1000;
+            case CENTIMETER -> meters * 100;
+            case MILLIMETER -> meters * 1000;
+            case MILE -> meters / 1609.34;
+            case YARD -> meters / 0.9144;
+            case FOOT -> meters / 0.3048;
+            case INCH -> meters / 0.0254;
+            default -> meters;
+
+        };
+
+        String record = "Converted " + value + " " + from + " to " + result + " " + to;
+        historyManager.addRecord(record);
+
+        return result;
     }
 }
